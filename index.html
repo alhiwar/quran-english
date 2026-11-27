@@ -1,0 +1,581 @@
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Listen to the meanings of the Holy Quran in English, reflect on its message, and explore all 114 chapters.">
+  <meta name="theme-color" content="#102d2b">
+  <title>Quran in English | Listen, Reflect, Understand</title>
+
+  <style>
+    :root {
+      --green: #102d2b;
+      --green-light: #1d4942;
+      --gold: #c7a66a;
+      --cream: #f8f6ef;
+      --ink: #24322f;
+      --muted: #697773;
+      --border: #e6e5dd;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: var(--cream);
+      color: var(--ink);
+      font-family: Georgia, "Times New Roman", serif;
+      line-height: 1.65;
+    }
+
+    button, input {
+      font: inherit;
+    }
+
+    .hero {
+      background:
+        radial-gradient(circle at 85% 20%, #28534a 0, transparent 40%),
+        linear-gradient(135deg, #102d2b, #183c35);
+      color: white;
+      text-align: center;
+      padding: 76px 20px 88px;
+      position: relative;
+    }
+
+    .eyebrow {
+      color: #e5cb94;
+      font: 600 12px Arial, sans-serif;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+    }
+
+    .ornament {
+      color: var(--gold);
+      font-size: 34px;
+      margin: 14px 0;
+    }
+
+    h1 {
+      font-size: clamp(38px, 6vw, 72px);
+      font-weight: normal;
+      line-height: 1.12;
+      margin: 16px 0;
+      letter-spacing: -1.5px;
+    }
+
+    .hero p {
+      max-width: 650px;
+      margin: 18px auto 0;
+      color: #e3ebe6;
+      font-size: 18px;
+    }
+
+    .hero-actions {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 30px;
+    }
+
+    .hero-actions a {
+      display: inline-block;
+      padding: 12px 25px;
+      border-radius: 30px;
+      text-decoration: none;
+      font: bold 14px Arial, sans-serif;
+    }
+
+    .primary {
+      background: var(--gold);
+      color: #172b26;
+    }
+
+    .secondary {
+      color: white;
+      border: 1px solid #80978c;
+    }
+
+    main {
+      max-width: 1150px;
+      margin: auto;
+      padding: 48px 20px 80px;
+    }
+
+    .intro {
+      text-align: center;
+      max-width: 760px;
+      margin: 0 auto 45px;
+    }
+
+    .intro h2, .section-title {
+      color: var(--green);
+      font-size: 31px;
+      font-weight: normal;
+      margin-bottom: 10px;
+    }
+
+    .intro p {
+      color: var(--muted);
+      font-size: 17px;
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      margin-bottom: 65px;
+    }
+
+    .feature {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 26px 22px;
+      text-align: center;
+    }
+
+    .feature-icon {
+      color: #98733c;
+      font-size: 30px;
+    }
+
+    .feature h3 {
+      font-size: 19px;
+      margin: 10px 0;
+      font-weight: normal;
+    }
+
+    .feature p {
+      color: var(--muted);
+      font-size: 14px;
+      margin: 0;
+    }
+
+    .library-heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-bottom: 22px;
+    }
+
+    .section-title { margin: 0; }
+
+    .search {
+      width: min(100%, 330px);
+      padding: 13px 17px;
+      border: 1px solid #d6d8ce;
+      border-radius: 30px;
+      background: white;
+      outline-color: var(--gold);
+      font-family: Arial, sans-serif;
+      font-size: 14px;
+    }
+
+    .surah-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 13px;
+    }
+
+    .surah {
+      display: flex;
+      align-items: center;
+      text-align: left;
+      gap: 13px;
+      width: 100%;
+      padding: 16px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: white;
+      color: var(--ink);
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .surah:hover, .surah:focus-visible {
+      border-color: var(--gold);
+      background: #fffdf7;
+      transform: translateY(-2px);
+    }
+
+    .surah.active {
+      border-color: #2f6b57;
+      background: #edf6ef;
+    }
+
+    .number {
+      width: 42px;
+      height: 42px;
+      flex-shrink: 0;
+      display: grid;
+      place-items: center;
+      background: #f2efe5;
+      color: #80683e;
+      border-radius: 50%;
+      font: bold 13px Arial, sans-serif;
+    }
+
+    .surah-name {
+      font-size: 17px;
+      line-height: 1.3;
+    }
+
+    .surah-meta {
+      color: var(--muted);
+      font: 12px Arial, sans-serif;
+      margin-top: 6px;
+    }
+
+    .play-symbol {
+      margin-left: auto;
+      color: #477461;
+      font-size: 18px;
+    }
+
+    .empty {
+      display: none;
+      padding: 30px;
+      text-align: center;
+      color: var(--muted);
+    }
+
+    .reflection {
+      margin-top: 65px;
+      padding: 38px 24px;
+      text-align: center;
+      border: 1px solid #e2d9c5;
+      background: #f1ecdf;
+      border-radius: 16px;
+    }
+
+    .reflection blockquote {
+      font-size: clamp(21px, 3vw, 29px);
+      line-height: 1.5;
+      max-width: 760px;
+      margin: 20px auto;
+      font-style: italic;
+    }
+
+    .reflection small {
+      color: var(--muted);
+      font-family: Arial, sans-serif;
+    }
+
+    footer {
+      text-align: center;
+      background: var(--green);
+      color: #e5eae6;
+      padding: 45px 20px 135px;
+    }
+
+    footer .credit {
+      color: #e4c58d;
+      font-size: 15px;
+    }
+
+    footer .prayer {
+      font-style: italic;
+      font-size: 17px;
+      margin-top: 10px;
+    }
+
+    footer .copyright {
+      color: #b1c0b8;
+      font: 12px Arial, sans-serif;
+      margin-top: 22px;
+    }
+
+    .player {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      z-index: 100;
+      background: #fff;
+      border-top: 2px solid var(--gold);
+      box-shadow: 0 -4px 22px #00000012;
+      padding: 12px 20px;
+    }
+
+    .player-inner {
+      max-width: 1100px;
+      margin: auto;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .player-label {
+      min-width: 180px;
+      font-size: 15px;
+      line-height: 1.35;
+    }
+
+    .player-label small {
+      display: block;
+      color: var(--muted);
+      font: 12px Arial, sans-serif;
+      margin-top: 4px;
+    }
+
+    audio {
+      width: 100%;
+      height: 43px;
+    }
+
+    @media (max-width: 850px) {
+      .features, .surah-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 550px) {
+      .hero { padding: 60px 20px 70px; }
+      .features, .surah-grid { grid-template-columns: 1fr; }
+      .library-heading { align-items: stretch; }
+      .search { width: 100%; }
+      .player-inner { flex-direction: column; gap: 7px; }
+      .player-label { width: 100%; min-width: 0; }
+      footer { padding-bottom: 170px; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="hero">
+    <div class="eyebrow">A Journey Through Divine Guidance</div>
+    <div class="ornament" aria-hidden="true">✦</div>
+    <h1>The Quran<br>in English</h1>
+    <p>
+      Listen to the meanings of the Holy Quran.
+      Discover its wisdom, reflect upon its message,
+      and experience its timeless guidance.
+    </p>
+    <div class="hero-actions">
+      <a class="primary" href="#chapters">Explore the 114 Chapters</a>
+      <a class="secondary" href="#about">About This Project</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="intro" id="about">
+      <div class="eyebrow" style="color:#9a7844">Listen · Reflect · Understand</div>
+      <h2>Words That Inspire the Heart</h2>
+      <p>
+        The Holy Quran is a source of guidance, mercy, and reflection.
+        This project offers an accessible listening experience of its
+        English meanings, inviting listeners of all backgrounds
+        to discover and contemplate its message.
+      </p>
+    </section>
+
+    <section class="features" aria-label="Project features">
+      <div class="feature">
+        <div class="feature-icon">◉</div>
+        <h3>Listen with Clarity</h3>
+        <p>English narration designed for a calm and focused listening experience.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">✧</div>
+        <h3>Explore Every Chapter</h3>
+        <p>Find any of the Quran's 114 chapters through a simple, searchable library.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">❖</div>
+        <h3>Reflect on the Message</h3>
+        <p>A welcoming space for understanding, contemplation, and learning.</p>
+      </div>
+    </section>
+
+    <section id="chapters">
+      <div class="library-heading">
+        <div>
+          <div class="eyebrow" style="color:#9a7844">The Complete Quran</div>
+          <h2 class="section-title">Explore the 114 Chapters</h2>
+        </div>
+        <input
+          class="search"
+          id="search"
+          type="search"
+          placeholder="Search by chapter name or number..."
+          aria-label="Search chapters"
+        >
+      </div>
+
+      <div class="surah-grid" id="surahGrid"></div>
+      <p class="empty" id="emptyMessage">No matching chapters found.</p>
+    </section>
+
+    <section class="reflection">
+      <div class="eyebrow" style="color:#9a7844">An Invitation to Reflect</div>
+      <blockquote>
+        "This is a blessed Book which We have revealed to you,
+        so that they may reflect upon its verses."
+      </blockquote>
+      <small>Paraphrased meaning of Quran 38:29</small>
+    </section>
+  </main>
+
+  <footer>
+    <div class="ornament" aria-hidden="true">✦</div>
+    <div class="credit">
+      Prepared, Designed, and Supervised by<br>
+      <strong>Jassim Mohammed Ali Almamori</strong>
+    </div>
+    <div class="prayer">We kindly ask for your prayers.</div>
+    <div class="copyright">
+      English meanings of the Holy Quran · An independent educational project
+    </div>
+  </footer>
+
+  <div class="player">
+    <div class="player-inner">
+      <div class="player-label">
+        <strong id="nowPlaying">Select a Chapter</strong>
+        <small id="playerStatus">English Quran audio</small>
+      </div>
+      <audio id="audioPlayer" controls preload="none">
+        Your browser does not support audio playback.
+      </audio>
+    </div>
+  </div>
+
+  <script>
+    const surahNames = [
+      "Al-Fatihah","Al-Baqarah","Ali 'Imran","An-Nisa",
+      "Al-Ma'idah","Al-An'am","Al-A'raf","Al-Anfal",
+      "At-Tawbah","Yunus","Hud","Yusuf","Ar-Ra'd",
+      "Ibrahim","Al-Hijr","An-Nahl","Al-Isra",
+      "Al-Kahf","Maryam","Ta-Ha","Al-Anbiya",
+      "Al-Hajj","Al-Mu'minun","An-Nur","Al-Furqan",
+      "Ash-Shu'ara","An-Naml","Al-Qasas","Al-Ankabut",
+      "Ar-Rum","Luqman","As-Sajdah","Al-Ahzab",
+      "Saba","Fatir","Ya-Sin","As-Saffat","Sad",
+      "Az-Zumar","Ghafir","Fussilat","Ash-Shura",
+      "Az-Zukhruf","Ad-Dukhan","Al-Jathiyah",
+      "Al-Ahqaf","Muhammad","Al-Fath","Al-Hujurat",
+      "Qaf","Adh-Dhariyat","At-Tur","An-Najm",
+      "Al-Qamar","Ar-Rahman","Al-Waqi'ah","Al-Hadid",
+      "Al-Mujadilah","Al-Hashr","Al-Mumtahanah",
+      "As-Saff","Al-Jumu'ah","Al-Munafiqun",
+      "At-Taghabun","At-Talaq","At-Tahrim",
+      "Al-Mulk","Al-Qalam","Al-Haqqah","Al-Ma'arij",
+      "Nuh","Al-Jinn","Al-Muzzammil","Al-Muddaththir",
+      "Al-Qiyamah","Al-Insan","Al-Mursalat",
+      "An-Naba","An-Nazi'at","Abasa","At-Takwir",
+      "Al-Infitar","Al-Mutaffifin","Al-Inshiqaq",
+      "Al-Buruj","At-Tariq","Al-A'la","Al-Ghashiyah",
+      "Al-Fajr","Al-Balad","Ash-Shams","Al-Layl",
+      "Ad-Duha","Ash-Sharh","At-Tin","Al-Alaq",
+      "Al-Qadr","Al-Bayyinah","Az-Zalzalah",
+      "Al-Adiyat","Al-Qari'ah","At-Takathur",
+      "Al-Asr","Al-Humazah","Al-Fil","Quraysh",
+      "Al-Ma'un","Al-Kawthar","Al-Kafirun",
+      "An-Nasr","Al-Masad","Al-Ikhlas","Al-Falaq",
+      "An-Nas"
+    ];
+
+    const grid = document.getElementById("surahGrid");
+    const search = document.getElementById("search");
+    const emptyMessage = document.getElementById("emptyMessage");
+    const audio = document.getElementById("audioPlayer");
+    const nowPlaying = document.getElementById("nowPlaying");
+    const playerStatus = document.getElementById("playerStatus");
+
+    // Audio files will be connected after independent hosting is set up.
+    // Example future path: https://YOUR-AUDIO-HOST/001.mp3
+    const AUDIO_BASE_URL = "";
+
+    function renderSurahs(query = "") {
+      grid.innerHTML = "";
+      const normalized = query.trim().toLowerCase();
+      let count = 0;
+
+      surahNames.forEach((name, index) => {
+        const number = index + 1;
+        const numberText = String(number).padStart(3, "0");
+
+        if (
+          !name.toLowerCase().includes(normalized) &&
+          !String(number).includes(normalized) &&
+          !numberText.includes(normalized)
+        ) {
+          return;
+        }
+
+        count++;
+
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "surah";
+        button.dataset.number = number;
+
+        const numberSpan = document.createElement("span");
+        numberSpan.className = "number";
+        numberSpan.textContent = numberText;
+
+        const details = document.createElement("span");
+
+        const title = document.createElement("div");
+        title.className = "surah-name";
+        title.textContent = name;
+
+        const meta = document.createElement("div");
+        meta.className = "surah-meta";
+        meta.textContent = "Chapter " + number;
+
+        details.append(title, meta);
+
+        const play = document.createElement("span");
+        play.className = "play-symbol";
+        play.textContent = "▶";
+        play.setAttribute("aria-hidden", "true");
+
+        button.append(numberSpan, details, play);
+        button.addEventListener("click", () => selectSurah(number, name));
+
+        grid.appendChild(button);
+      });
+
+      emptyMessage.style.display = count ? "none" : "block";
+    }
+
+    function selectSurah(number, name) {
+      nowPlaying.textContent = number + ". " + name;
+
+      document.querySelectorAll(".surah").forEach(button => {
+        button.classList.toggle(
+          "active",
+          Number(button.dataset.number) === number
+        );
+      });
+
+      if (!AUDIO_BASE_URL) {
+        playerStatus.textContent = "Audio files will be added soon";
+        audio.pause();
+        audio.removeAttribute("src");
+        audio.load();
+        return;
+      }
+
+      const filename = String(number).padStart(3, "0") + ".mp3";
+      audio.src = AUDIO_BASE_URL.replace(/\/$/, "") + "/" + filename;
+      playerStatus.textContent = "English narration";
+      audio.play().catch(() => {
+        playerStatus.textContent = "Press play to listen";
+      });
+    }
+
+    search.addEventListener("input", () => {
+      renderSurahs(search.value);
+    });
+
+    renderSurahs();
+  </script>
+</body>
+</html>
